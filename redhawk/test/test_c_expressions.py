@@ -16,4 +16,4 @@ def TestExpressions():
   t = CT.SetUp(TEST_FILE)
   for (i, description) in enumerate(test_descriptions):
     ConvertTree.description = "Test `%s`"%(description.strip())
-    yield ConvertTree, t.children()[0].body.block_items[i]
+    yield ConvertTree, t.children()[0][1].body.block_items[i]

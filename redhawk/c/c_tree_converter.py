@@ -81,7 +81,7 @@ class CTreeConverter(tree_converter.TreeConverter):
   def ConvertFileast(self, tree):
     return N.Module(position = NP.NodePosition(self.filename, 1, 1),
         filename = self.filename,
-        children = map(self.ConvertTree, tree.children()))
+        children = [self.ConvertTree(n) for _,n in tree.children()])
 
   def ConvertReturn(self, tree):
     return N.Return(GetCoords(tree), 
