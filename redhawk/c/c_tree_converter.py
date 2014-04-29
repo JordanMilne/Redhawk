@@ -122,7 +122,7 @@ class CTreeConverter(tree_converter.TreeConverter):
     if isinstance(t, N.Union):
       t.storage, t.quals = None, None
       return t
-    else: 
+    else:
       return N.DefineVariable(GetCoords(tree), 
         name = tree.name, 
         init = self.ConvertTree(tree.init),
@@ -362,6 +362,10 @@ class CTreeConverter(tree_converter.TreeConverter):
   def ConvertExprlist(self, tree):
     return N.List(position = GetCoords(tree),
         values = map(self.ConvertTree, tree.exprs))
+
+  def ConvertInitlist(self, tree):
+      return N.List(position = GetCoords(tree),
+        values = [self.ConvertTree(n) for n in tree.exprs])
 
   def ConvertArrayref(self, tree):
     return N.Expression(position = GetCoords(tree),
