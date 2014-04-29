@@ -46,15 +46,8 @@ def Flatten(li):
 
 def GetHashDigest(filename):
   """ Get the sha1 digest of `filename`)"""
-  try:
-    fp = open(filename)
-    digest = hashlib.sha1(fp.read()).hexdigest()
-    fp.close()
-    return digest
-  except IOError, e:
-    sys.stderr.write(str(e))
-    sys.exit(1)
-  return
+  with open(filename) as fp:
+      return hashlib.sha1(fp.read()).hexdigest()
 
 
 def GuessLanguage(filename):
