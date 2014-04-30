@@ -17,7 +17,7 @@ class TestXMLWriter:
     return
 
   def GetFilename(self):
-    i = self.counter.next()
+    i = next(self.counter)
     return os.path.join(self.temp_dir, str(i))
 
   def FunctionTestXML(self, ast):
