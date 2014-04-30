@@ -5,6 +5,9 @@ import redhawk.common.tree_converter as tree_converter
 import redhawk.common.types as T
 
 import ast
+import sys
+
+PY3 = sys.version_info[0] >= 3
 
 # Map Python AST operators into the L-AST operators
 # Add | Sub | Mult | Div | Mod | Pow | LShift 
@@ -596,13 +599,21 @@ class PythonTreeConverter(tree_converter.TreeConverter):
 
   def ConvertWith(self, tree):
     """ Convert With(expr context_expr, expr? optional_vars, stmt* body) node."""
-    assign_node = ast.Assign(
-        [tree.optional_vars],
-        tree.context_expr,
-        lineno = tree.lineno,
-        col_offset = tree.col_offset)
+    defvars = []
+    if PY3:
+        for withitem in tree.items:
+            assign_node = ast.Assign([tree.optional_vars], tree.context_expr,
+                             lineno = tree.lineno, col_offset = tree.col_offset)
+            defvars.append(self.ConvertTree(assign_node))
+    else:
+        assign_node = ast.Assign(
+            [tree.optional_vars],
+            tree.context_expr,
+            lineno = tree.lineno,
+            col_offset = tree.col_offset)
 
-    defvars = [self.ConvertTree(assign_node)]
+        defvars = [self.ConvertTree(assign_node)]
+
     return N.Let(position = self.gc.GC(tree),
                  defvars = defvars, 
                  body = self.ConvertListOfStatements(tree.body))
