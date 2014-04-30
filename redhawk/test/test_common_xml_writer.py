@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import redhawk.common.writers.xml_writer as X
-import common_test_utils as T
+from . import common_test_utils as T
 
 import nose.tools
 

@@ -2,7 +2,7 @@
 """ Test the DotWriter module in redhawk/common/writers."""
 
 import redhawk.common.writers.dot_writer as D
-import common_test_utils as T
+from . import common_test_utils as T
 
 import nose.tools
 

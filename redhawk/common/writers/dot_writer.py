@@ -3,7 +3,7 @@
 import redhawk.common.node as N
 import redhawk.common.types as T
 import redhawk.utils.util as U
-import writer
+from . import writer
 
 import itertools
 import pygraphviz

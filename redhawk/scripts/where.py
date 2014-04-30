@@ -1,7 +1,7 @@
 from __future__ import print_function
 
 #!/usr/bin/env python
-import script_util as S
+from . import script_util as S
 import redhawk.utils.key_value_store as KVStore
 import redhawk
 

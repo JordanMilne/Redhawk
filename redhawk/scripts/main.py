@@ -1,16 +1,16 @@
 from __future__ import print_function
 #!/usr/bin/env python
-import add
-import init
-import listfiles
-import prompt
-import query
-import remove
-import show
-import where
+from . import add
+from . import init
+from . import listfiles
+from . import prompt
+from . import query
+from . import remove
+from . import show
+from . import where
 
 import redhawk
-import script_util as S
+from . import script_util as S
 
 import logging
 import optparse

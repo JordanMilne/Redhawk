@@ -4,7 +4,7 @@
 
 import redhawk.common._selector as S
 import redhawk.common.node as N
-from sample_last import tree
+from .sample_last import tree
 
 import nose
 

@@ -34,7 +34,7 @@ parsing (and converting) it.
 """
 from __future__ import print_function
 
-import get_parser
+from . import get_parser
 import redhawk
 import redhawk.utils.util as U
 import redhawk.utils.key_value_store as KVStore

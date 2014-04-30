@@ -121,8 +121,8 @@ NodeQuery = identifier? @[identifier=string]* @{codeblock}? Position*
 Position = [ comma-separated-list-of-numbers ]
 """
 from __future__ import print_function
-import _selector
-import traverse
+from . import _selector
+from . import traverse
 
 import redhawk.utils.parser_combinator as P
 import redhawk.utils.util as U
@@ -393,7 +393,7 @@ def XPath(trees, xpath_string):
 def Main():
   """ Only for testing."""
 
-  import format_position as F
+  from . import format_position as F
   import redhawk.common.get_ast as G
 
   if len(sys.argv) < 2:

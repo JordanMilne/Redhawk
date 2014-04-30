@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """ Implementation of the C Parser class."""
-import c_tree_converter
+from . import c_tree_converter
 import redhawk.common.parser as parser
 
 import pycparser

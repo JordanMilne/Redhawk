@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """ Implementation of redhawk show"""
 from __future__ import print_function
-import script_util as S
+from . import script_util as S
 
 import redhawk.common.get_ast as G
 

@@ -5,7 +5,7 @@ Various language implementations have to
   b) provide the Parse Method for their language.
  """
 
-import tree_converter as T
+from . import tree_converter as T
 
 class Parser:
   def GetTreeConverterClass(self):

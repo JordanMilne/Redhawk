@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """ Implementation of the Python Parser class."""
-import python_tree_converter
+from . import python_tree_converter
 import redhawk.common.parser as parser
 
 import ast

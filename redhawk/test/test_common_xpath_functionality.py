@@ -4,7 +4,7 @@
 from __future__ import print_function
 
 import redhawk.common.selector as S
-from sample_last import module_tree
+from .sample_last import module_tree
 import redhawk.common.xpath as X
 
 

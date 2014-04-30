@@ -3,7 +3,7 @@
 """ Tests conversion of full programs. """
 from __future__ import print_function
 
-import c_test_utils as CT
+from . import c_test_utils as CT
 
 tests = [("prog001.c", "Function to return 0")
         ,("prog002.c", "Static function to return 0")

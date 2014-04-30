@@ -1,7 +1,7 @@
 from __future__ import print_function
 #!/usr/bin/env python
-import node as N
-import node_position as NP
+from . import node as N
+from . import node_position as NP
 import redhawk.utils.util as U
 
 class TreeConverter:

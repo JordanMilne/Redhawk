@@ -1,6 +1,6 @@
 from __future__ import print_function
 #!/usr/bin/env python
-import script_util as S
+from . import script_util as S
 import redhawk.common.selector as selector
 import redhawk.common.format_position as format_position
 import redhawk.common.get_ast as G

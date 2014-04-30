@@ -50,7 +50,7 @@ fixed in the future.
 """
 
 import redhawk.utils.util as U
-import traverse
+from . import traverse
 
 
 def RunSelector(s, trees):
