@@ -33,7 +33,6 @@ def TestGenerator():
   all_asts = list(T.GetAllLASTs())
   for i in range(PICK):
     r_index = random.randrange(0, len(all_asts))
-    c.FunctionTestXML.im_func.description = "Test Random AST (%d) with XML Writer."%(r_index)
     yield c.FunctionTestXML, all_asts[r_index]
 
 
@@ -44,6 +43,5 @@ def TestAllPrograms():
   c = TestXMLWriter()
   all_asts = list(T.GetAllLASTs())
   for (i, ast) in enumerate(all_asts):
-    c.FunctionTestXML.im_func.description = "Testing AST (%d) with XML Writer."%(i)
     yield c.FunctionTestXML, ast
 
