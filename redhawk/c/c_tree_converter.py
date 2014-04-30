@@ -226,26 +226,12 @@ class CTreeConverter(tree_converter.TreeConverter):
 
   def ConvertCompound(self, tree):
     """ Note that this function returns a list, as opposed to a node."""
-    # The Case Node is screwed up. We need to flesh out the
-    # case node's stmt, and put it up one level higher.
-    if not tree.block_items:
-      return []
-
-    compound_items = []
-    for t in tree.block_items:
-      ct = self.ConvertTree(t)
-      compound_items.append(ct)
-
-      # We could have a case of case of case of ...
-      while isinstance(ct, N.CaseDefault):
-        t = t.stmt
-        ct = self.ConvertTree(t)
-        compound_items.append(ct)
-
     # We should be using self.ConvertListOfStatements here,
     # but since the converted nodes are already in a list,
     # we return that.
-    return compound_items
+    if not tree.block_items:
+        return []
+    return [self.ConvertTree(t) for t in tree.block_items]
 
   def ConvertBinaryop(self, tree):
     assert(tree.op in BINARY_OPERATOR_CONVERSIONS)
@@ -342,11 +328,13 @@ class CTreeConverter(tree_converter.TreeConverter):
 
   def ConvertCase(self, tree):
     return N.CaseDefault(position = GetCoords(tree),
-        condition = self.ConvertTree(tree.expr))
+        condition = self.ConvertTree(tree.expr),
+        statements = [self.ConvertTree(n) for n in tree.stmts])
     # Condition is None => default
 
   def ConvertDefault(self, tree):
-    return N.CaseDefault(position = GetCoords(tree))
+    return N.CaseDefault(position = GetCoords(tree),
+                         statements = [self.ConvertTree(n) for n in tree.stmts])
 
   def ConvertCast(self, tree):
     return N.Expression(position = None,

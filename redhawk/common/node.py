@@ -250,15 +250,13 @@ class CallFunction(Node):
 
 class CaseDefault(ControlFlowStatement):
   """A case or default statement."""
-  def __init__(self, position, condition = None):
+  def __init__(self, position, condition = None, statements=None):
     self.position = position
     self.condition = condition
-    return
+    self.statements = statements or []
 
   def GetChildren(self):
-    li = []
-    li.append(self.condition)
-    return li
+    return [self.condition] + self.statements
 
   def GetSExp(self):
     li = []

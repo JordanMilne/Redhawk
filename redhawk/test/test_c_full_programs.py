@@ -31,11 +31,11 @@ tests = [("prog001.c", "Function to return 0")
         ,("prog025.c", "Test Hello World Empty arguments.")
         ,("prog026.c", "Test Empty Main Program.")]
 
-def ConvertFile(filename):
+def ConvertFile(filename, description):
+  print(filename, description)
   t = CT.SetUp(filename)
   return CT.ConvertTree(t, filename=filename)
 
 def TestPrograms():
   for (filename, description) in tests:
-    ConvertFile.description = "Test %s (%s)"%(filename, description)
-    yield ConvertFile, filename
+    yield ConvertFile, filename, description
