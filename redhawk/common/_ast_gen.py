@@ -27,11 +27,11 @@ def GetClasses(file_body):
   nodes.sort()
 
   for (name, c) in nodes:
-    assert c.has_key('sexp'), "%s does not have sexp"%name
+    assert 'sexp' in c, "%s does not have sexp"%name
 
     # Print appropriate warnings
     for w_key in "docstring args children".split():
-      if not c.has_key(w_key):
+      if w_key not in c:
         U.LogWarning('%s does not have %s'%(name, w_key))
 
 

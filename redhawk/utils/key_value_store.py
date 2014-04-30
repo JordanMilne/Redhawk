@@ -71,8 +71,7 @@ class KeyValueStore:
     self.store_file = store_file
     self.store = _OpenStore(store_file)
 
-    if (not self.store.has_key(VERSION_KEY) or
-      self.store[VERSION_KEY] != version):
+    if (VERSION_KEY not in self.store or self.store[VERSION_KEY] != version):
         logging.error("Versions of redhawk do not match. Clearing database.\n")
         self.ClearStore()
     return
@@ -95,7 +94,7 @@ class KeyValueStore:
     return self.store[VERSION_KEY]
 
   def HasKey(self, key):
-    return self.store.has_key(key)
+    return (key in self.store)
 
   def Get(self, key):
     assert(key != VERSION_KEY)
