@@ -570,8 +570,9 @@ class PythonTreeConverter(tree_converter.TreeConverter):
   def ConvertRaise(self, tree):
     """ Convert the Raise(expr? type, expr? inst, expr? tback)"""
     #TODO(spranesh): We currently ignore inst, and tback
+    exc = tree.exc if PY3 else tree.type
     return N.Raise(position = self.gc.GC(tree),
-                   exception_type = self.ConvertTree(tree.type))
+                   exception = self.ConvertTree(exc))
 
 
   def ConvertExcepthandler(self, tree):

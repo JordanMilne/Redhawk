@@ -1034,20 +1034,20 @@ class Print(Node):
 
 class Raise(ExceptionsStatement):
   """Raise an Exception."""
-  def __init__(self, position, exception_type):
+  def __init__(self, position, exception):
     self.position = position
-    self.exception_type = exception_type
+    self.exception = exception
     return
 
   def GetChildren(self):
     li = []
-    li.append(self.exception_type)
+    li.append(self.exception)
     return li
 
   def GetSExp(self):
     li = []
     li.append('raise-exception')
-    li.append(self.exception_type)
+    li.append(self.exception)
     return li
 
 
