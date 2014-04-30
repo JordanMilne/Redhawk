@@ -9,11 +9,13 @@ are in place.
 
 import redhawk
 
-import anydbm
+try: # Python 3
+    import dbm
+except ImportError: # Python 2
+    import anydbm as dbm
 import logging
 import os
 import shelve
-import sys
 
 VERSION_KEY = '__redhawk__version__'
 
@@ -61,7 +63,7 @@ def IsValidStore(store_file):
   try:
     store = _OpenStore(store_file)
     _CloseStoreObject(store)
-  except anydbm.error as e:
+  except dbm.error:
     return False
   return True
 
