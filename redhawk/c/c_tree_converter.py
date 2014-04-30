@@ -6,7 +6,6 @@ import redhawk.common.node_position as NP
 import redhawk.common.traverse as traverse
 import redhawk.common.tree_converter as tree_converter
 import redhawk.common.types as T
-import redhawk.utils.util as U
 import logging
 
 # Map C operators into the LAST operators
@@ -141,7 +140,7 @@ class CTreeConverter(tree_converter.TreeConverter):
     """ Returns Type Object """
     try:
       return T.BaseType(base_type = tree.names[0])
-    except IndexError as e:
+    except IndexError:
       # Default type is int in C
       return T.BaseType(base_type = 'int')
 
@@ -178,14 +177,14 @@ class CTreeConverter(tree_converter.TreeConverter):
         of name va_list."""
     try:
       position = GetCoords(tree)
-    except AssertionError as e:
+    except AssertionError:
       position = None
 
     #TODO(spranesh): Cheap Hack?
     if tree.params[-1].__class__.__name__ == 'EllipsisParam':
       try:
         va_list_position = GetCoords(tree.params[-1])
-      except AssertionError as e:
+      except AssertionError:
         va_list_position = None
 
       return N.FunctionArguments(position = position,
