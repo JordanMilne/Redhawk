@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 """ Functions and Constants common to all the executables."""
+from __future__ import print_function
 import redhawk
 import redhawk.utils.util as U
 
@@ -34,7 +35,7 @@ def ShowImage(filename, eog=False):
   try:
     import Image
   except ImportError as e:
-    print "Cannot find the Image module. Opening in your web-browser."
+    print("Cannot find the Image module. Opening in your web-browser.")
     webbrowser.open(filename)
     return
   

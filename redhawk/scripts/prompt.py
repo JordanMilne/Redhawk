@@ -1,3 +1,4 @@
+from __future__ import print_function
 #!/usr/bin/env python
 import script_util as S
 import redhawk.common.selector as selector
@@ -115,7 +116,7 @@ Built in Modules:
 To view this again, use the Help() function.  """
 
   if display:
-    print s
+    print(s)
   else:
     return s
   

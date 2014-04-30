@@ -1,3 +1,4 @@
+from __future__ import print_function
 import redhawk.utils.util as U
 import redhawk.utils.code_generator_backend as C
 
@@ -234,7 +235,7 @@ def GetYAMLFileAsPythonCode(filename):
 
 def Main():
   for (ip_file, op_file, header_file) in FILES:
-    print(ip_file, op_file, header_file)
+    print((ip_file, op_file, header_file))
     op = open(op_file, "w")
     op.write(open(header_file).read())
     op.write("\n")

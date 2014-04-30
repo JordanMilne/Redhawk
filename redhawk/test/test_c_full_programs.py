@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 """ Tests conversion of full programs. """
+from __future__ import print_function
 
 import c_test_utils as CT
 
@@ -32,7 +33,7 @@ tests = [("prog001.c", "Function to return 0")
         ,("prog026.c", "Test Empty Main Program.")]
 
 def ConvertFile(filename, description):
-  print(filename, description)
+  print((filename, description))
   t = CT.SetUp(filename)
   return CT.ConvertTree(t, filename=filename)
 

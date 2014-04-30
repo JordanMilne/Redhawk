@@ -1,3 +1,4 @@
+from __future__ import print_function
 #!/usr/bin/env python
 
 import redhawk.common.node as N
@@ -116,4 +117,4 @@ tree = module_tree.GetChildren()[0]
 __all__ = ['tree', 'module_tree']
 
 if __name__ == '__main__':
-  print module_tree.ToStr()
+  print(module_tree.ToStr())

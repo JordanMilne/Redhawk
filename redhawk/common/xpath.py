@@ -120,6 +120,7 @@ NodeQuery = identifier? @[identifier=string]* @{codeblock}? Position*
 
 Position = [ comma-separated-list-of-numbers ]
 """
+from __future__ import print_function
 import _selector
 import traverse
 
@@ -378,7 +379,7 @@ def ParseXPath(s):
   try:
     return xpath_query_parser(s)[0]
   except SyntaxError as e:
-    print "Syntax Error: %s"%(e)
+    print("Syntax Error: %s"%(e))
     sys.exit(1)
   return
 
@@ -396,15 +397,15 @@ def Main():
   import redhawk.common.get_ast as G
 
   if len(sys.argv) < 2:
-    print """ %s <xpath-query> [files].
+    print(""" %s <xpath-query> [files].
 
     If files are not given, the parsed xpath-query is printed.
-    Otherwise the concerned lines in each file is printed."""%(sys.argv[0])
+    Otherwise the concerned lines in each file is printed."""%(sys.argv[0]))
     sys.exit(1)
 
   parsed_query = ParseXPath(sys.argv[1])
   if len(sys.argv) == 2:
-    print parsed_query
+    print(parsed_query)
     return
 
   for f in sys.argv[2:]:

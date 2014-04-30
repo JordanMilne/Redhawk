@@ -1,3 +1,4 @@
+from __future__ import print_function
 #!/usr/bin/env python
 import script_util as S
 
@@ -93,7 +94,7 @@ def Main(args):
   parsed_query = X.ParseXPath(args[0])
   if options.show_parsed_query:
     for q in parsed_query:
-      print q
+      print(q)
     sys.exit(0)
 
   if len(args) == 1:

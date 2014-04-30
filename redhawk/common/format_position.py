@@ -7,6 +7,7 @@ Most users will either just use ContextInFile or PrintContextInFile.
 In case one wants to get the position first, and print it, a composition of
 GetPosition, and ShowPosition will be useful.
 """
+from __future__ import print_function
 import redhawk.utils.util as U
 
 def ContextInFile(tree, context = 3, lines=None):
@@ -16,7 +17,7 @@ def ContextInFile(tree, context = 3, lines=None):
 
 def PrintContextInFile(tree, context = 3, lines = None):
   """ Print the context of the tree in its file."""
-  print ContextInFile(tree, context, lines)
+  print(ContextInFile(tree, context, lines))
   return
 
 

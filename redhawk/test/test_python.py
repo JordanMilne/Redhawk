@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 """ Test Python Conversions."""
+from __future__ import print_function
 
 import redhawk
 import redhawk.python.python_tree_converter as P
@@ -31,11 +32,11 @@ def SetUp(filename, rel_path=RELATIVE_TEST_PATH):
 def ConvertTree(t, filename=None, verbose=True):
   """ Convert the Python-AST into the L-AST."""
   if verbose:
-    print ast.dump(t)
+    print(ast.dump(t))
   c = P.PythonTreeConverter(filename)
   a = c.Convert(t)
   if verbose:
-    print a.ToStr(), "\n\n"
+    print(a.ToStr(), "\n\n")
   return a
 
 

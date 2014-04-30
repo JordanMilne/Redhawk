@@ -1,3 +1,4 @@
+from __future__ import print_function
 #!/usr/bin/env python
 
 import script_util as S
@@ -25,8 +26,8 @@ def Main(args):
   ast_fetcher = G.CreateLASTFetcher(database_file, store_new = True)
   for f in S.GetSupportedFiles(args):
     ast = ast_fetcher.GetAST(f, key=S.GetKey(f, database_file))
-    print "%s: Parsing "%(f)
-  print "Adding to Database.."
+    print("%s: Parsing "%(f))
+  print("Adding to Database..")
   ast_fetcher.Close()
-  print "Done"
+  print("Done")
   return

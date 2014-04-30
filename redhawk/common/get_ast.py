@@ -32,6 +32,7 @@ NOTE: None can be passed as the argument to the database argument, for any of
 these functions. In such a case, it will simply fetch the required tree, by
 parsing (and converting) it.
 """
+from __future__ import print_function
 
 import get_parser
 import redhawk
@@ -51,7 +52,7 @@ def __ParseLAST(filename, language):
 def __ParseLanguageSpecificTree(filename, language):
   """ Parses Language Specific Tree for the given language."""
   parser = get_parser.GetParser(language = language, filename = filename)
-  print parser
+  print(parser)
   return parser.Parse(filename)
 
 def GetLAST(filename, database, key=None, language=None, store_new = True):
@@ -153,7 +154,7 @@ class ASTFetcher:
       return
 
     if not KVStore.IsValidStore(database_file):
-      print database_file
+      print(database_file)
       logging.error("Not a valid store. Recreating..\n")
       KVStore.RemoveExistingStore(database_file)
       KVStore.CreateNewStore(database_file, redhawk.GetVersion())

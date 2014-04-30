@@ -1,4 +1,5 @@
 """ A utilty module for C tests. """
+from __future__ import print_function
 
 import redhawk
 import redhawk.c.c_tree_converter as C
@@ -27,6 +28,6 @@ def ConvertTree(t, filename=None, verbose=True):
   c = C.CTreeConverter(filename)
   ast = c.Convert(t)
   if verbose:
-    print ast.ToStr(), "\n\n"
+    print(ast.ToStr(), "\n\n")
   return ast
 

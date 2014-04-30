@@ -1,7 +1,8 @@
+from __future__ import print_function
 # A program to tests dot's ability to display newlines
 
 def HelloWorld():
-  print "Hello\tWorld\n"
+  print("Hello\tWorld\n")
 
 def main():
   HelloWorld()

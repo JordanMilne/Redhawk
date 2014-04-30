@@ -1,3 +1,4 @@
+from __future__ import print_function
 #!/usr/bin/env python
 
 import script_util as S
@@ -31,9 +32,9 @@ def Main(args):
   for f in S.GetSupportedFiles(args):
     key = S.GetKey(f, database_file)
     if store.HasKey(key):
-      print "Removing: %s"%(U.GetDBPathRelativeToCurrentDirectory(f))
+      print("Removing: %s"%(U.GetDBPathRelativeToCurrentDirectory(f)))
       store.RemoveKey(key)
     else:
-      print "Not found: %s"%(U.GetDBPathRelativeToCurrentDirectory(f))
+      print("Not found: %s"%(U.GetDBPathRelativeToCurrentDirectory(f)))
   store.Close()
   return

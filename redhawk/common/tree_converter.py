@@ -1,3 +1,4 @@
+from __future__ import print_function
 #!/usr/bin/env python
 import node as N
 import node_position as NP
@@ -23,7 +24,7 @@ class TreeConverter:
         try:
           self.AttachParents(c, tree)
         except AttributeError as e:
-          print c, parent, tree
+          print(c, parent, tree)
           raise AttributeError(e)
     return
 

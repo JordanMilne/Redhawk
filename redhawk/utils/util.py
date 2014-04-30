@@ -1,3 +1,4 @@
+from __future__ import print_function
 #!/usr/bin/env python
 import redhawk
 
@@ -155,8 +156,8 @@ def AdjustFilePathToBaseDirectory(filepath, base_dir):
 
   return os.path.relpath(filepath, base_dir)
 
-  print filepath
-  print cur_dir
+  print(filepath)
+  print(cur_dir)
 
 def GetDBPathRelativeToCurrentDirectory(filepath):
   database_dir = os.path.dirname(

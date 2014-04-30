@@ -1,3 +1,4 @@
+from __future__ import print_function
 # Test Try, Except
 
 try:
@@ -13,4 +14,4 @@ except IndexError as e:
   y = 0
   z = 0
 finally:
-  print x, y, z
+  print(x, y, z)

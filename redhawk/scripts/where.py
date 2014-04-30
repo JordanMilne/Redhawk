@@ -1,3 +1,4 @@
+from __future__ import print_function
 
 #!/usr/bin/env python
 import script_util as S
@@ -22,8 +23,8 @@ def Main(args):
 
   database_file = S.GetDatabase()
   if database_file == None:
-    print "No Index found."
+    print("No Index found.")
   else:
-    print database_file
+    print(database_file)
 
   return

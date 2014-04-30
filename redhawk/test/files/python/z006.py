@@ -1,3 +1,4 @@
+from __future__ import print_function
 # Test Classes
 
 class Animal:
@@ -5,12 +6,12 @@ class Animal:
 
 class Cat(Animal):
   def MakeSound(self):
-    print "Meow"
+    print("Meow")
 
 class Tiger(Animal, Cat):
   def MakeSound(self):
-    print "Grrrr"
+    print("Grrrr")
 
   def EatPrey(self):
-    print "Chomp! Chomp!"
+    print("Chomp! Chomp!")
 

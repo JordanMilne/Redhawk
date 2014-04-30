@@ -1,4 +1,5 @@
 """ Test the util.py in redhawk/utils."""
+from __future__ import print_function
 
 import redhawk.utils.util as U
 
@@ -92,7 +93,7 @@ def TestFindFileInDirectoryOrAncestors():
   filepath = os.path.join(root_dir, "test_file")
   fp = open(filepath, "w")
   fp.close()
-  print root_dir, a_dir, b_dir, filepath
+  print(root_dir, a_dir, b_dir, filepath)
 
   # Check if test_file can be found
   assert(U.FindFileInDirectoryOrAncestors("test_file", b_dir) == 

@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 """ Test XPath Parsing."""
+from __future__ import print_function
 
 import redhawk.common.xpath as X
 
@@ -142,7 +143,7 @@ def TestSlashSepAtomicQueriesParser():
 
 def TestPosition():
   query = X.ParseXPath("[12]")
-  print query
+  print(query)
 
 def TestParseXPath():
   # Thoroughly test final function

@@ -1,3 +1,4 @@
+from __future__ import print_function
 #!/usr/bin/env python
 import redhawk.common.selector as S
 import redhawk.common.get_ast as G
@@ -31,7 +32,7 @@ def Main():
   functions_wanted = U.Concat([list(S.Select(ast, selector)) for ast in asts])
 
   for f in functions_wanted:
-    print f.position
+    print(f.position)
   return
 
 
