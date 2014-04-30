@@ -176,7 +176,7 @@ def HasDescendant(s1, s2):
       return False
 
     dfs = traverse.DFS(x)
-    dfs.next() # Skip the current node
+    next(dfs) # Skip the current node
     for node in dfs:
       if s2(node):
         return True
