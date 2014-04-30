@@ -35,7 +35,7 @@ def Flatten(li):
 
 def GetHashDigest(filename):
   """ Get the sha1 digest of `filename`)"""
-  with open(filename) as fp:
+  with open(filename, 'rb') as fp:
       return hashlib.sha1(fp.read()).hexdigest()
 
 
