@@ -110,5 +110,6 @@ def GetDatabase():
 
 def GetKey(filepath, database):
   """ Return the key corresponding to the given filepath."""
-  if not database: return None
-  return U.AdjustFilePathToBaseDirectory(filepath, os.path.dirname(database))
+  if not database:
+      return None
+  return os.path.relpath(filepath, os.path.dirname(database))
