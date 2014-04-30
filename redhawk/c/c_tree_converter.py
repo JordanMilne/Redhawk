@@ -236,13 +236,13 @@ class CTreeConverter(tree_converter.TreeConverter):
     assert(tree.op in BINARY_OPERATOR_CONVERSIONS)
     return N.Expression(position = GetCoords(tree),
         operator = BINARY_OPERATOR_CONVERSIONS[tree.op],
-        children = map(self.ConvertTree, [tree.left, tree.right]))
+        children = self.ConvertListOfStatements([tree.left, tree.right]))
     
   def ConvertUnaryop(self, tree):
     assert(tree.op in UNARY_OPERATOR_CONVERSIONS)
     return N.Expression(position = GetCoords(tree),
         operator = UNARY_OPERATOR_CONVERSIONS[tree.op],
-        children = map(self.ConvertTree, [tree.expr]))
+        children = [self.ConvertTree(tree.expr)])
 
   def ConvertAssignment(self, tree):
     op = tree.op
@@ -294,7 +294,7 @@ class CTreeConverter(tree_converter.TreeConverter):
     assert(op in BINARY_OPERATOR_CONVERSIONS)
     return N.Expression(position = GetCoords(tree),
         operator = BINARY_OPERATOR_CONVERSIONS[op],
-        children = map(self.ConvertTree, [tree.name, tree.field]))
+        children = self.ConvertListOfStatements([tree.name, tree.field]))
 
   def ConvertIf(self, tree):
     return N.IfElse(position = GetCoords(tree),
@@ -409,5 +409,4 @@ class CTreeConverter(tree_converter.TreeConverter):
   def ConvertTernaryop(self, tree):
     return N.Expression(position = GetCoords(tree),
         operator = 'TERNARY_IF',
-        children = map(self.ConvertTree, [tree.cond, tree.iftrue,
-          tree.iffalse]))
+        children = self.ConvertListOfStatements([tree.cond, tree.iftrue, tree.iffalse]))

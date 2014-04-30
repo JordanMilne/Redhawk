@@ -125,7 +125,7 @@ class PythonTreeConverter(tree_converter.TreeConverter):
             | BitXor | BitAnd | FloorDiv"""
     return N.Expression(position = self.gc.GC(tree),
         operator = BINARY_OPERATOR_CONVERSIONS[GetClassName(tree.op)],
-        children = map(self.ConvertTree, [tree.left, tree.right]))
+        children = self.ConvertListOfStatements([tree.left, tree.right]))
 
 
   def ConvertName(self, tree):
@@ -140,7 +140,7 @@ class PythonTreeConverter(tree_converter.TreeConverter):
     """ Convert the BoolOp(boolop op, expr* values) node. (And | Or) """
     return N.Expression(position = self.gc.GC(tree),
         operator = BINARY_OPERATOR_CONVERSIONS[GetClassName(tree.op)],
-        children = map(self.ConvertTree, tree.values))
+        children = self.ConvertListOfStatements(tree.values))
 
 
   def __ConvertBinaryOperation(self, op, position, left, right):
@@ -149,7 +149,7 @@ class PythonTreeConverter(tree_converter.TreeConverter):
     NOT_BINARY_OPERATORS dictionary, and a BOOLEAN_NOT."""
     expr = N.Expression(position = position,
         operator = None,
-        children = map(self.ConvertTree, [left, right]))
+        children = self.ConvertListOfStatements([left, right]))
 
     if op in NOT_BINARY_OPERATORS:
       expr.operator = NOT_BINARY_OPERATORS[op]
@@ -294,8 +294,7 @@ class PythonTreeConverter(tree_converter.TreeConverter):
     """ Convert the IfExp(expr test, expr body, expr orelse) node."""
     return N.Expression(position = self.gc.GC(tree),
         operator = 'TERNARY_IF',
-        children = map(self.ConvertTree, [tree.test, tree.body,
-          tree.orelse]))
+        children = self.ConvertListOfStatements([tree.test, tree.body, tree.orelse]))
 
 
   def ConvertCompound(self, li):
@@ -311,12 +310,12 @@ class PythonTreeConverter(tree_converter.TreeConverter):
   def ConvertModule(self, tree):
     return N.Module(position = NP.NodePosition(self.filename, 1, 1),
         filename = self.filename,
-        children = map(self.ConvertTree, tree.body))
+        children = self.ConvertListOfStatements(tree.body))
 
 
   def ConvertInteractive(self, tree):
     return N.Module(None,
-        children = map(self.ConvertTree, tree.body))
+        children = self.ConvertListOfStatements(tree.body))
 
 
   def ConvertExpression(self, tree):
@@ -333,7 +332,7 @@ class PythonTreeConverter(tree_converter.TreeConverter):
     if tree.ifs != []:
       condition = N.Expression(position = self.gc.GC(tree.ifs[0]),
         operator = 'BOOLEAN_AND',
-        children = map(self.ConvertTree, tree.ifs))
+        children = self.ConvertListOfStatements(tree.ifs))
 
     return N.Generator(position = None,
         target = self.ConvertTree(tree.target),
@@ -586,7 +585,7 @@ class PythonTreeConverter(tree_converter.TreeConverter):
     node. """
     return N.TryCatch(position = self.gc.GC(tree),
                       body = self.ConvertListOfStatements(tree.body),
-                      exception_handlers = map(self.ConvertTree, tree.handlers),
+                      exception_handlers = list(map(self.ConvertTree, tree.handlers)),
                       orelse = self.ConvertListOfStatements(tree.orelse))
 
 
@@ -625,8 +624,8 @@ class PythonTreeConverter(tree_converter.TreeConverter):
 
     c = N.DefineClass(position = self.gc.GC(tree),
                       name = tree.name,
-                      inherits = map(self.ConvertTree, tree.bases),
-                      body = map(self.ConvertTree, tree.body))
+                      inherits = self.ConvertListOfStatements(tree.bases),
+                      body = self.ConvertListOfStatements(tree.body))
     
     return self.__EncapsulateNodeInDecorators(c, tree.decorator_list[::-1])
 
@@ -639,7 +638,7 @@ class PythonTreeConverter(tree_converter.TreeConverter):
   def ConvertImport(self, tree):
     """ Convert Import(alias* names) node."""
     return N.Import(position = self.gc.GC(tree),
-                    import_aliases = map(self.ConvertAlias, tree.names))
+                    import_aliases = list(map(self.ConvertAlias, tree.names)))
 
   def ConvertImportfrom(self, tree):
     """ Convert the 
@@ -647,7 +646,7 @@ class PythonTreeConverter(tree_converter.TreeConverter):
     node."""
     return N.ImportFrom(position = self.gc.GC(tree),
                         module = tree.module,
-                        import_aliases = map(self.ConvertAlias, tree.names))
+                        import_aliases = list(map(self.ConvertAlias, tree.names)))
 
   def ConvertGlobal(self, tree):
     return N.ContextVariables(position = self.gc.GC(tree),
