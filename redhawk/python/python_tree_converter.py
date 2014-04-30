@@ -204,26 +204,26 @@ class PythonTreeConverter(tree_converter.TreeConverter):
   def ConvertTuple(self, tree):
     """ Convert the Tuple(expr* elts, expr_context ctx) node."""
     return N.Tuple(position = self.gc.GC(tree),
-        members = map(self.ConvertTree, tree.elts))
+        members = list(map(self.ConvertTree, tree.elts)))
 
 
   def ConvertList(self, tree):
     """ Convert the List(expr* elts, expr_context ctx) node."""
     return N.List(position = self.gc.GC(tree),
-        values = map(self.ConvertTree, tree.elts))
+        values = list(map(self.ConvertTree, tree.elts)))
 
   def ConvertDict(self, tree):
     """ Convert the Dict(expr* keys, expr* values) node."""
     return N.Dict(position = self.gc.GC(tree),
-        keys = map(self.ConvertTree, tree.keys),
-        values = map(self.ConvertTree, tree.values))
+        keys = list(map(self.ConvertTree, tree.keys)),
+        values = list(map(self.ConvertTree, tree.values)))
  
 
   def ConvertAssign(self, tree):
     """ Convert the Assign(expr* targets, expr value) node."""
     if len(tree.targets) > 1:
       left = N.Tuple(position = self.gc.GC(tree.targets),
-          members = map(self.ConvertTree, tree.targets))
+          members = list(map(self.ConvertTree, tree.targets)))
     else:
       left = self.ConvertTree(tree.targets[0])
 
@@ -304,7 +304,7 @@ class PythonTreeConverter(tree_converter.TreeConverter):
       return None
 
     return N.Compound(position = self.gc.GC(li[0]),
-        compound_items = map(self.ConvertTree, li))
+        compound_items = list(map(self.ConvertTree, li)))
 
 
   def ConvertModule(self, tree):
@@ -350,7 +350,7 @@ class PythonTreeConverter(tree_converter.TreeConverter):
     return N.Comprehension(position = self.gc.GC(tree),
         expr = elt,
         type = type,
-        generators = map(self.ConvertTree, tree.generators))
+        generators = list(map(self.ConvertTree, tree.generators)))
 
 
   def ConvertListcomp(self, tree):
@@ -555,7 +555,7 @@ class PythonTreeConverter(tree_converter.TreeConverter):
   def ConvertDelete(self, tree):
     """ Convert the Delete(expr* targets) statement."""
     return N.Delete(position = self.gc.GC(tree),
-                    targets = map(self.ConvertTree, tree.targets))
+                    targets = list(map(self.ConvertTree, tree.targets)))
 
   def ConvertPrint(self, tree):
     """ Convert the Print(expr? dest, expr* values, bool nl)
@@ -563,7 +563,7 @@ class PythonTreeConverter(tree_converter.TreeConverter):
     """
     # TODO(spranesh): We currently ignore nl
     return N.Print(position = self.gc.GC(tree),
-                   values = map(self.ConvertTree, tree.values),
+                   values = list(map(self.ConvertTree, tree.values)),
                    stream = self.ConvertTree(tree.dest))
 
 

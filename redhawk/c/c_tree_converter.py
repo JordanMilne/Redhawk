@@ -188,11 +188,11 @@ class CTreeConverter(tree_converter.TreeConverter):
         va_list_position = None
 
       return N.FunctionArguments(position = position,
-          arguments = map(self.ConvertTree, tree.params[:-1]),
+          arguments = list(map(self.ConvertTree, tree.params[:-1])),
           var_arguments = [N.DefineVariable(va_list_position, 'va_list')])
 
     return N.FunctionArguments(position = position,
-         arguments = map(self.ConvertTree, tree.params))
+         arguments = list(map(self.ConvertTree, tree.params)))
 
   def ConvertFuncdecl(self, tree):
     """ Handle Function Declarations."""
@@ -268,7 +268,7 @@ class CTreeConverter(tree_converter.TreeConverter):
   def ConvertFunccall(self, tree):
     arguments = []
     if tree.args:
-      arguments = map(self.ConvertTree, tree.args.exprs)
+      arguments = list(map(self.ConvertTree, tree.args.exprs))
 
     return N.CallFunction(position = GetCoords(tree),
         function = self.ConvertTree(tree.name),
@@ -287,7 +287,7 @@ class CTreeConverter(tree_converter.TreeConverter):
     else:
       return N.Structure(position = GetCoords(tree),
           name = tree.name,
-          members = map(self.ConvertTree, tree.decls))
+          members = list(map(self.ConvertTree, tree.decls)))
          
   def ConvertStructref(self, tree):
     op = tree.type  # a.b or a->b
@@ -348,7 +348,7 @@ class CTreeConverter(tree_converter.TreeConverter):
 
   def ConvertExprlist(self, tree):
     return N.List(position = GetCoords(tree),
-        values = map(self.ConvertTree, tree.exprs))
+        values = list(map(self.ConvertTree, tree.exprs)))
 
   def ConvertInitlist(self, tree):
       return N.List(position = GetCoords(tree),
@@ -371,7 +371,7 @@ class CTreeConverter(tree_converter.TreeConverter):
     else:
       return N.Enumerator(position = GetCoords(tree),
           name = tree.name,
-          values = map(self.ConvertTree, tree.values.enumerators))
+          values = list(map(self.ConvertTree, tree.values.enumerators)))
 
   def ConvertEnumerator(self, tree):
     return N.DeclareSymbol(position = GetCoords(tree),
@@ -404,7 +404,7 @@ class CTreeConverter(tree_converter.TreeConverter):
     else:
       return N.Union(position = GetCoords(tree),
           name = tree.name,
-          members = map(self.ConvertTree, tree.decls))
+          members = list(map(self.ConvertTree, tree.decls)))
 
   def ConvertTernaryop(self, tree):
     return N.Expression(position = GetCoords(tree),
