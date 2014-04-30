@@ -5,10 +5,14 @@ import redhawk.common.get_parser as P
 import redhawk.utils.util as U
 
 import os
+from os.path import join as pjoin
 import glob
 
-AST_FILES = [("test/files/c/*.c", 'c', 'test/files/asts_c.redhawk_db')
-            ,("test/files/python/*.py", 'python', 'test/files/asts_python.redhawk_db')]
+TEST_DIR = os.path.dirname(__file__)
+
+
+AST_FILES = [(pjoin(TEST_DIR, "files/c/*.c"), 'c', pjoin(TEST_DIR, '/files/asts_c.redhawk_db'))
+            ,(pjoin(TEST_DIR, "files/python/*.py"), 'python', pjoin(TEST_DIR, 'files/asts_python.redhawk_db'))]
 
 def GetAllLASTs():
   for (g, language, database) in AST_FILES:

@@ -11,6 +11,9 @@ import itertools
 import tempfile
 import os
 
+TEST_DIR = os.path.dirname(__file__)
+DOT_FILES = os.path.join(TEST_DIR, 'files', 'dot')
+
 class TestDotWriter:
   def __init__(self):
     self.counter = itertools.count(0)
@@ -43,9 +46,9 @@ def TestGenerator():
 def TestDotNewlineSupport():
   """ Test Dot for programs with newlines in keys/attr strings."""
   test_dot_writer.FunctionTestDot(T.GetLASTFromFile(
-    "test/files/dot/newline.c", "c", None))
+    os.path.join(DOT_FILES, "newline.c"), "c", None))
   test_dot_writer.FunctionTestDot(T.GetLASTFromFile(
-    "test/files/dot/newline.py", "python", None))
+    os.path.join(DOT_FILES, "newline.py"), "python", None))
   return
 
 

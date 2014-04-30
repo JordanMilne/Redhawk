@@ -14,11 +14,12 @@ import glob
 import os
 import sys
 
-RELATIVE_TEST_PATH = "test/files/python"
+TEST_DIR = os.path.dirname(__file__)
+RELATIVE_TEST_PATH = os.path.join(TEST_DIR, 'files', 'python')
+PICKLE_FILE = os.path.join(TEST_DIR, 'files', 'asts_python.redhawk_db')
   
 def SetUp(filename, rel_path=RELATIVE_TEST_PATH):
   """ SetUp returns a parsed python Program."""
-  PICKLE_FILE = "test/files/asts_python.redhawk_db"
   if not os.path.exists(PICKLE_FILE):
     KVStore.CreateNewStore(PICKLE_FILE, redhawk.GetVersion())
     
