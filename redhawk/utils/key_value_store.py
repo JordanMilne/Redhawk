@@ -9,10 +9,10 @@ are in place.
 
 import redhawk
 
-try: # Python 3
-    import dbm
-except ImportError: # Python 2
+try: # Python 2
     import anydbm as dbm
+except ImportError: # Python 3
+    import dbm
 import logging
 import os
 import shelve

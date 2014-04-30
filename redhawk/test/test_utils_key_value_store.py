@@ -52,11 +52,11 @@ def TestIsValidStore():
   temp_file = GetTempFile()
 
   KV.CreateNewStore(temp_file, redhawk.GetVersion())
-  assert(KV.IsValidStore(temp_file) == True)
+  assert KV.IsValidStore(temp_file)
 
   fp = open(temp_file, 'w')
   fp.close()
-  assert(KV.IsValidStore(temp_file) == False)
+  assert not KV.IsValidStore(temp_file)
 
 def TestNiceInitKeyValueStore():
   temp_file = GetTempFile()
