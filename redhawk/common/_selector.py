@@ -110,7 +110,7 @@ def Selector(node_type = None
     # Function
     try:
       match = function == None or function(node)
-    except AttributeError, e:
+    except AttributeError as e:
       match = False 
       if not match_only_common_attributes:
         raise AttributeError(e)

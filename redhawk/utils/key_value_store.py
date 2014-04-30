@@ -61,7 +61,7 @@ def IsValidStore(store_file):
   try:
     store = _OpenStore(store_file)
     _CloseStoreObject(store)
-  except anydbm.error, e:
+  except anydbm.error as e:
     return False
   return True
 

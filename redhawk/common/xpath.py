@@ -205,7 +205,7 @@ class NodeMatchQuery(Query):
     if self.codegroup:
       try:
         return eval('lambda n: '+ self.codegroup, {}, {})
-      except StandardError, e:
+      except StandardError as e:
         raise SyntaxError(str(e) + ": " + self.codegroup)
     return None
 
@@ -277,7 +277,7 @@ def CleanPosition(s):
   for n in s.split(","):
     try:
       numbers.append(int(n))
-    except ValueError, e:
+    except ValueError as e:
       raise SyntaxError("Unable to parse '%s' into a number in position syntax : '%s'"
           %(n, s))
   return numbers
@@ -377,7 +377,7 @@ def ParseXPath(s):
     raise SyntaxError("Queries should not end with a '/'")
   try:
     return xpath_query_parser(s)[0]
-  except SyntaxError, e:
+  except SyntaxError as e:
     print "Syntax Error: %s"%(e)
     sys.exit(1)
   return

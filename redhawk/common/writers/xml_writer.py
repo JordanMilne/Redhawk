@@ -43,7 +43,7 @@ class XMLWriter(writer.Writer):
   def __AddPositionToElement(self, tree, parent_element):
     try:
       line, column, f = tree.position.GetLine(), tree.position.GetColumn(), tree.position.GetFile()
-    except AttributeError, e:
+    except AttributeError as e:
       line, column, f = None, None, None
 
     attributes = {

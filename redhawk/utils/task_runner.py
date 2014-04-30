@@ -72,7 +72,7 @@ class TaskRunner:
     if parallel:
       try:
         import pp
-      except ImportError, e:
+      except ImportError as e:
         sys.stderr.write(pp_not_found_error)
         sys.exit(1)
 

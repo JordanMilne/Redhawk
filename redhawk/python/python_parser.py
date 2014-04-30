@@ -15,7 +15,7 @@ class PythonParser(parser.Parser):
     try:
       tree = ast.parse(open(filename).read(), filename = filename)
       return tree
-    except SyntaxError, e:
+    except SyntaxError as e:
       error = "Error parsing file %s with ast module. Skipping\n"%(filename)
       logging.warning(error)
       return None

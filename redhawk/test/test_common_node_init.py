@@ -6,7 +6,7 @@ def TestNodeInit():
   """ Test Node cannot be initialised. """
   try:
     n = node.Node()
-  except NotImplementedError, e:
+  except NotImplementedError as e:
     return
   assert(False)
 

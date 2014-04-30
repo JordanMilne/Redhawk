@@ -65,7 +65,7 @@ class TransformCoord:
     """ Get Coord."""
     try:
       return NP.NodePosition(self.filename, c.lineno, c.col_offset)
-    except AttributeError, e:
+    except AttributeError as e:
       return None
 
 

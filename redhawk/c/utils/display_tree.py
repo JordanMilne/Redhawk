@@ -52,7 +52,7 @@ def PrintTree(tree, indent_level = 0, fp=sys.stdout):
 
 try:
   filename = sys.argv[1]
-except IndexError, e:
+except IndexError as e:
   sys.stderr.write("No C file specified to parse.\n")
   sys.exit(1)
 

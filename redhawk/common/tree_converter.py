@@ -22,7 +22,7 @@ class TreeConverter:
       if c is not None:
         try:
           self.AttachParents(c, tree)
-        except AttributeError, e:
+        except AttributeError as e:
           print c, parent, tree
           raise AttributeError(e)
     return

@@ -110,7 +110,7 @@ def TestFindFileInDirectoryOrAncestors():
   raised = False
   try:
     U.FindFileInDirectoryOrAncestors("test_file", c_dir)
-  except IOError, e:
+  except IOError as e:
     raised = True
   assert(raised)
 

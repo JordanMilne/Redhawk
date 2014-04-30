@@ -141,7 +141,7 @@ class CTreeConverter(tree_converter.TreeConverter):
     """ Returns Type Object """
     try:
       return T.BaseType(base_type = tree.names[0])
-    except IndexError, e:
+    except IndexError as e:
       # Default type is int in C
       return T.BaseType(base_type = 'int')
 
@@ -178,14 +178,14 @@ class CTreeConverter(tree_converter.TreeConverter):
         of name va_list."""
     try:
       position = GetCoords(tree)
-    except AssertionError, e:
+    except AssertionError as e:
       position = None
 
     #TODO(spranesh): Cheap Hack?
     if tree.params[-1].__class__.__name__ == 'EllipsisParam':
       try:
         va_list_position = GetCoords(tree.params[-1])
-      except AssertionError, e:
+      except AssertionError as e:
         va_list_position = None
 
       return N.FunctionArguments(position = position,

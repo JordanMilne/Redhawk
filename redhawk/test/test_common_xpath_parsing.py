@@ -11,7 +11,7 @@ def RaisesSyntaxError(delayed_callable):
   raises = False
   try:
     delayed_callable()
-  except SyntaxError, e:
+  except SyntaxError as e:
     raises = True
 
   assert raises, "Expression Does not Raise Syntax Error"

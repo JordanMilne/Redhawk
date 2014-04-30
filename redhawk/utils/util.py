@@ -117,7 +117,7 @@ def StartShell(local_vars, banner='', try_ipython=True):
     try:
       IPythonShell(local_vars, banner)
       return
-    except ImportError, e:
+    except ImportError as e:
       pass
   else:
     PythonShell(local_vars, banner)

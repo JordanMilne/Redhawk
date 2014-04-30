@@ -53,7 +53,7 @@ class CParser(parser.Parser):
     try:
       parser = pycparser.c_parser.CParser()
       return parser.parse(cpp_text, filename)
-    except pycparser.plyparser.ParseError, e:
+    except pycparser.plyparser.ParseError as e:
       error = "Error parsing file %s with pycparser (with cpp). Skipping\n"%(filename)
       logging.warning(error)
       logging.debug(str(e))
