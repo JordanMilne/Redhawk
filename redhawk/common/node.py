@@ -5,11 +5,10 @@
     The header is stored in node_header.py
 """
 
-from . import writers.scheme_writer as S
+from .writers import scheme_writer as S
 import redhawk.utils.util as U
 
 import copy
-import pprint
 
 # -1 means infinite number of operators possible
 # A dictionary of allowed operators, and their arity.
