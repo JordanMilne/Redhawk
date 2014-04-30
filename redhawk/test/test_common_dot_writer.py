@@ -1,15 +1,18 @@
 #!/usr/bin/env python
 """ Test the DotWriter module in redhawk/common/writers."""
 
-import redhawk.common.writers.dot_writer as D
 from . import common_test_utils as T
 
 import nose.tools
+from unittest import skipIf
 
 import random
 import itertools
 import tempfile
 import os
+import sys
+
+PY3 = sys.version_info[0] >= 3
 
 TEST_DIR = os.path.dirname(__file__)
 DOT_FILES = os.path.join(TEST_DIR, 'files', 'dot')
@@ -26,6 +29,7 @@ class TestDotWriter:
 
   def FunctionTestDot(self, ast):
     v = self.GetFilename()
+    import redhawk.common.writers.dot_writer as D
     open(v + '.dot', "w").write(D.WriteToDot(ast))
     D.WriteToImage(ast, filename = v + '.png')
     return
@@ -33,6 +37,7 @@ class TestDotWriter:
 
 test_dot_writer = TestDotWriter()
 
+@skipIf(PY3, "pygraphviz isn't ported to Python 3")
 def TestGenerator():
   """ Testing Dot Writer. """
   PICK=1
@@ -42,7 +47,7 @@ def TestGenerator():
     test_dot_writer.FunctionTestDot.im_func.description = "Test Random AST (%d) with Dot Writer."%(r_index)
     yield test_dot_writer.FunctionTestDot, all_asts[r_index]
 
-
+@skipIf(PY3, "pygraphviz isn't ported to Python 3")
 def TestDotNewlineSupport():
   """ Test Dot for programs with newlines in keys/attr strings."""
   test_dot_writer.FunctionTestDot(T.GetLASTFromFile(
@@ -54,6 +59,7 @@ def TestDotNewlineSupport():
 
 # Disable the test by default.
 @nose.tools.nottest
+@skipIf(PY3, "pygraphviz isn't ported to Python 3")
 def TestAllPrograms():
   """ Testing Dot Writer (all programs) """
   all_asts = list(T.GetAllLASTs())
