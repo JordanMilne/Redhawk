@@ -7,11 +7,10 @@ import redhawk.common.get_ast as G
 import redhawk.utils.key_value_store as KVStore
 
 import os
-import sys
 
 TEST_DIR = os.path.dirname(__file__)
 RELATIVE_TEST_PATH = os.path.join(TEST_DIR, 'files', 'c')
-PICKLE_FILE = os.path.join(TEST_DIR, 'files' 'asts_c.redhawk_db')
+PICKLE_FILE = os.path.join(TEST_DIR, 'files', 'asts_c.redhawk_db')
   
 def SetUp(filename, rel_path=RELATIVE_TEST_PATH):
   """ SetUp returns a parsed C Program."""
