@@ -394,6 +394,8 @@ class PythonTreeConverter(tree_converter.TreeConverter):
         elt = elt,
         type = 'dict')
         
+  def _ConvertArg(self, arg, position):
+      return N.DefineVariable(position, name = arg.arg)
 
   def __ConvertArguments(self, args, position):
     """ Convert the Python argument node to the FunctionArguments L-AST node. The
@@ -401,10 +403,11 @@ class PythonTreeConverter(tree_converter.TreeConverter):
     Python (everything else is a ReferVariable).  We therefore handle it here
     itself. """
 
-    arguments =  []
-    for x in args.args:
-      arguments.append(self.ConvertTree(x))
-
+    if PY3:
+        arguments = [self._ConvertArg(a, position) for a in args.args]
+    else:
+        # In Python 2, arguments are Name nodes with ctx=Param()
+        arguments = [self.ConvertTree(a) for a in args.args]
 
     for (i, y) in enumerate(args.defaults):
       arguments[len(arguments) - len(args.defaults) + i].init = self.ConvertTree(y)
@@ -600,9 +603,9 @@ class PythonTreeConverter(tree_converter.TreeConverter):
     """ Convert With(expr context_expr, expr? optional_vars, stmt* body) node."""
     defvars = []
     if PY3:
-        for withitem in tree.items:
-            assign_node = ast.Assign([tree.optional_vars], tree.context_expr,
-                             lineno = tree.lineno, col_offset = tree.col_offset)
+        for witem in tree.items:
+            assign_node = ast.Assign([witem.optional_vars], witem.context_expr,
+                             lineno=tree.lineno, col_offset=tree.col_offset)
             defvars.append(self.ConvertTree(assign_node))
     else:
         assign_node = ast.Assign(
