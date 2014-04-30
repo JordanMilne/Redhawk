@@ -29,8 +29,8 @@ VERSION_KEY = '__redhawk__version__'
 """
 
 # Shelve open, and close abstraction barriers.
-def _OpenStore(store_file):
-  return shelve.open(store_file, 'c')
+def _OpenStore(store_file, flag='c'):
+  return shelve.open(store_file, flag=flag)
 
 def _CloseStoreObject(store_object):
   store_object.close()
@@ -40,21 +40,17 @@ def _CloseStoreObject(store_object):
 def CreateNewStore(store_file, version):
   """ Creates a new functioning store.
   The path should not exist before the function is called."""
-  assert(os.path.exists(store_file) == False)
-  store = _OpenStore(store_file)
+  assert not os.path.exists(store_file)
+  store = _OpenStore(store_file, flag='n')
   store[VERSION_KEY] = version
   _CloseStoreObject(store)
-  assert(os.path.exists(store_file) == True)
-  return None
-
 
 def RemoveExistingStore(store_file):
   """ Removes an existing store. (`rm`s it).
   The path should exist before the function is called."""
-  assert(os.path.exists(store_file) == True)
+  assert os.path.exists(store_file)
   os.remove(store_file)
-  assert(os.path.exists(store_file) == False)
-  return None
+  assert not os.path.exists(store_file)
 
 
 def IsValidStore(store_file):
