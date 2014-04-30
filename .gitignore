@@ -11,5 +11,6 @@ yacctab.py
 .redhawk_db
 MANIFEST
 dist/*
+build/
 *.egg-info
 *.tar.gz
