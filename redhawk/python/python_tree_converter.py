@@ -576,9 +576,14 @@ class PythonTreeConverter(tree_converter.TreeConverter):
 
   def ConvertExcepthandler(self, tree):
     """ Convert the ExceptHandler(expr? type, expr? name, stmt* body) node."""
+    if PY3:
+        name = N.ReferVariable(position = self.gc.GC(tree),
+                               name = tree.name)
+    else:
+        name = self.ConvertTree(tree.name)
     return N.ExceptionHandler(position = self.gc.GC(tree),
                               body = self.ConvertListOfStatements(tree.body),
-                              name = self.ConvertTree(tree.name),
+                              name = name,
                               type = self.ConvertTree(tree.type))
 
 
@@ -597,6 +602,23 @@ class PythonTreeConverter(tree_converter.TreeConverter):
     return N.Finally(position = self.gc.GC(tree),
                      body = self.ConvertListOfStatements(tree.body),
                      final_body = self.ConvertListOfStatements(tree.finalbody))
+
+  def ConvertTry(self, tree):
+      """Convert Try(stmt* body, excepthandler* handlers, stmt* orelse, stmt* finalbody)
+      
+      New in Python 3.3
+      """
+      if tree.handlers:
+          body = [N.TryCatch(position = self.gc.GC(tree),
+                             body=self.ConvertListOfStatements(tree.body),
+                             exception_handlers=list(map(self.ConvertTree, tree.handlers)),
+                             orelse = self.ConvertListOfStatements(tree.orelse)
+                 )]
+      else:
+          body = self.ConvertListOfStatements(tree.body)
+      return N.Finally(position = self.gc.GC(tree),
+                       body = body,
+                       final_body = self.ConvertListOfStatements(tree.finalbody))
 
 
   def ConvertWith(self, tree):
