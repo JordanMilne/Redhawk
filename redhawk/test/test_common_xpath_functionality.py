@@ -141,24 +141,17 @@ def TestIfElse():
 
 def TestStarStarCurrentLevel():
   """ Test that ** can be used for the current level."""
-  l1 = list(Query("**/FunctionArguments"))
-  l2 = list(Query("**/DefineFunction/**/FunctionArguments"))
+  l1 = Query("**/FunctionArguments")
+  l2 = Query("**/DefineFunction/**/FunctionArguments")
   assert(len(l1) == 2)
-  l1.sort()
-  l2.sort()
   assert(l1 == l2)
-  return
 
 def TestLastLevel():
   """ Test Things at a leaf node."""
-  l1 = list(Query("**/Constant"))
-  l2 = list(Query("**/Constant/../Constant"))
-  l3 = list(Query("**/Constant/../Constant"))
-  l1.sort()
-  l2.sort()
-  l3.sort()
+  l1 = Query("**/Constant")
+  l2 = Query("**/Constant/../Constant")
+  l3 = Query("**/Constant/../Constant")
   assert(l1 == l2 == l3)
-  return
 
 
 def TestMultipleAttributes():
@@ -173,9 +166,7 @@ def TestEqualityOfChildNode():
   l2 = list(Query('**/Constant@[value="0"]/..'))
   assert(len(l1) == len(l2) == 1)
   assert(l1 == l2)
-  l1 = list(Query('**/(Constant@[value="1"])'))
-  l2 = list(Query('**/Constant@[value="1"]/..'))
-  l1.sort()
-  l2.sort()
-  assert(l1 == l2)
+  l1 = Query('**/(Constant@[value="1"])')
+  l2 = Query('**/Constant@[value="1"]/..')
+  assert l1 == l2
 
