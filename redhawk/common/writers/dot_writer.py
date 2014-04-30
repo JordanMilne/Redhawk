@@ -119,10 +119,8 @@ class DotWriter(writer.Writer):
         continue
 
       else:
-        U.ExitWithError("%s's child (type: %s) was supposed to be a Node!\n %s"
-          %(ast_node.GetName(),
-            type(child),
-            ast_node))
+        raise ValueError("%s's child (type: %s) was supposed to be a Node!\n %s"
+                          %(ast_node.GetName(), type(child), ast_node))
 
     return
 

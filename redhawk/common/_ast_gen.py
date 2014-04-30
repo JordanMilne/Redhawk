@@ -27,7 +27,7 @@ def GetClasses(file_body):
   nodes.sort()
 
   for (name, c) in nodes:
-    U.AssertWithError(c.has_key('sexp'), "%s does not have sexp"%name)
+    assert c.has_key('sexp'), "%s does not have sexp"%name
 
     # Print appropriate warnings
     for w_key in "docstring args children".split():
@@ -123,7 +123,7 @@ def WriteListReturnMethod(c, name, li, args):
 
       # If a starts and ends with backquotes, we copy it verbatim.
       if a[0] == '`':
-        U.AssertWithError(a[-1] == '`', "No closing backquote found at %s"%a)
+        assert a[-1] == '`', "No closing backquote found at %s"%a
         c.WriteLine("li.append(%s)"%(a[1:-1]))
 
       # Otherwise, we check to see if it begins with a '*', and take
@@ -144,8 +144,8 @@ def WriteListReturnMethod(c, name, li, args):
       #   li.append(['a[1]', rest of list])
       if a[0][0] is '_':
         condition = a[0][1:]
-        U.AssertWithError(condition in args, "%s not in %s, %s, %s"%(condition,
-          name, li, args))
+        assert condition in args, "%s not in %s, %s, %s"%(condition,
+                                                          name, li, args)
 
         c.WriteLine("if self.%s:"%(condition))
         c.Indent()

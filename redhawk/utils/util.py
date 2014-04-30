@@ -6,28 +6,11 @@ import hashlib
 import operator
 import os
 import sys
-import traceback 
-
-def AssertWithError(condition, error):
-  """ If condition is false, exit with error."""
-  if callable(condition):
-    condition = condition()
-  if not condition:
-    ExitWithError(error)
-
 
 def Concat(li):
   """ Concat :: [[a]] -> [a].
       similar to Haskell's concat."""
   return reduce(operator.concat, li)
-
-
-def ExitWithError(error, backtrace=True):
-  if backtrace:
-    traceback.print_stack()
-  sys.stderr.write("\n" + error + "\n")
-  sys.exit(1)
-
 
 def Flatten(li):
   """ Returns a generator that is a flattened out version of the original
@@ -62,22 +45,6 @@ def GuessLanguage(filename):
 
   return {'c'   : 'c'
          ,'py'  : 'python'}[extension] 
-
-
-def IfElse(condition, iftrue, iffalse):
-  """ A re-implementation of C's ternary operator:
-        Pass callables to avoid evaulation."""
-
-  def CallIfPossible(x):
-    if callable(x):
-      return x()
-    else:
-      return x
-
-  if CallIfPossible(condition):
-    return CallIfPossible(iftrue)
-  else:
-    return CallIfPossible(iffalse)
 
 
 def IndexInto(li, indices):
