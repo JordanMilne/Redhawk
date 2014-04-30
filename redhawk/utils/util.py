@@ -104,9 +104,12 @@ def StartShell(local_vars, banner='', try_ipython=True):
   banner as a welcome message."""
 
   def IPythonShell(namespace, banner):
-    from IPython.Shell import IPShell
-    ipshell = IPShell(user_ns = namespace)
-    ipshell.mainloop(banner=banner)
+    from IPython import start_ipython
+    sys.argv = ['']  # This is needed because argparse tries to grab argv[0]
+    from IPython.config import Config
+    c = Config()
+    c.TerminalInteractiveShell.banner1 = banner
+    start_ipython(user_ns=namespace, argv=[], config=c)
 
   def PythonShell(namespace, banner):
     import readline, rlcompleter, code 
@@ -116,13 +119,11 @@ def StartShell(local_vars, banner='', try_ipython=True):
 
   if try_ipython:
     try:
-      IPythonShell(local_vars, banner)
-      return
-    except ImportError as e:
+      return IPythonShell(local_vars, banner)
+    except ImportError:
       pass
-  else:
-    PythonShell(local_vars, banner)
-  return
+
+  PythonShell(local_vars, banner)
 
 def FindFileInDirectoryOrAncestors(filename, dirname, perm=os.R_OK | os.W_OK):
   """ Tries to find the file `filename` in the given directory `dirname` or
