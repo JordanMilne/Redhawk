@@ -7,6 +7,11 @@ import operator
 import os
 import sys
 
+try:
+    reduce
+except NameError:
+    from functools import reduce
+
 def Concat(li):
   """ Concat :: [[a]] -> [a].
       similar to Haskell's concat."""
