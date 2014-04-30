@@ -131,6 +131,11 @@ import itertools
 import re
 import sys
 
+if sys.version_info[0] >= 3:
+    ifilter = filter
+else:
+    from itertools import ifilter
+
 # All our filter functions are from sequences to sequences
 #   Filter :: Iterable -> Iterable
 
@@ -220,7 +225,7 @@ class NodeMatchQuery(Query):
         node_type = self.node_type,
         function = self.__CreateFunctionFromCodeGroup(),
         **self.attributes)
-    matched_nodes = itertools.ifilter(s, it)
+    matched_nodes = ifilter(s, it)
 
     if not self.position_list:
       return matched_nodes
