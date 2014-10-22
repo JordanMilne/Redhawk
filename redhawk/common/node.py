@@ -1084,6 +1084,21 @@ class Return(Node):
 
 
 
+class Set(Node):
+  """A Set."""
+  def __init__(self, position, values):
+    self.position = position
+    self.values = values
+    return
+
+  def GetChildren(self):
+    return self.values[:]
+
+  def GetSExp(self):
+    return self.values[:]
+
+
+
 class Show(Node):
   """Convert to a showable. Like Haskell's show, and python's repr."""
   def __init__(self, position, value):

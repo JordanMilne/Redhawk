@@ -212,6 +212,11 @@ class PythonTreeConverter(tree_converter.TreeConverter):
     return N.List(position = self.gc.GC(tree),
         values = list(map(self.ConvertTree, tree.elts)))
 
+  def ConvertSet(self, tree):
+    """ Convert the Set(expr* elts, expr_context ctx) node."""
+    return N.Set(position = self.gc.GC(tree),
+        values = list(map(self.ConvertTree, tree.elts)))
+
   def ConvertDict(self, tree):
     """ Convert the Dict(expr* keys, expr* values) node."""
     return N.Dict(position = self.gc.GC(tree),
