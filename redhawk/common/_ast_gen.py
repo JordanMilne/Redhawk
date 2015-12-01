@@ -3,6 +3,7 @@ import redhawk.utils.util as U
 import redhawk.utils.code_generator_backend as C
 
 import pprint
+import re
 import yaml
 
 FILES = [# (input config file, out file, header file)
@@ -65,12 +66,23 @@ def WriteMethodDeclaration(c, name, args, optargs):
     in c """
   # Function Definition
   c.Write("def %s(self"%(name))
+  opt_conds = []
   for a in args:
     c.Write(", %s"%a)
   for a in optargs:
-    c.Write(", %s = None"%a)
+    optarg_split = re.split(r"\s*=\s*", a, 1)
+    if len(optarg_split) == 2:
+      argname = optarg_split[0]
+      defval = optarg_split[1]
+      opt_conds.append("if %s is None: %s = %s" % (argname, argname, defval))
+    c.Write(", %s = None"%optarg_split[0])
   c.Write("):")
   c.NewLine()
+  c.Indent()
+  for cond in opt_conds:
+    c.Write(cond)
+    c.NewLine()
+  c.Dedent()
   return
 
 
@@ -202,7 +214,7 @@ def GenerateClass(name, attrs):
   WriteMethodDeclaration(c, '__init__', attrs['args'], attrs['optargs'])
   c.Indent()
 
-  args = attrs['args'] + attrs['optargs']
+  args = attrs['args'] + [re.split(r"\s*=\s*", x, 1)[0] for x in attrs['optargs']]
   for x in args:
     c.WriteLine("self.%s = %s"%(x, x))
   c.WriteLine("return")

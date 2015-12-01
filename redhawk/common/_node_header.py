@@ -5,7 +5,7 @@
     The header is stored in node_header.py
 """
 
-from . import writers.scheme_writer as S
+from .writers import scheme_writer as S
 import redhawk.utils.util as U
 
 import copy

@@ -9,6 +9,7 @@ from .writers import scheme_writer as S
 import redhawk.utils.util as U
 
 import copy
+import pprint
 
 # -1 means infinite number of operators possible
 # A dictionary of allowed operators, and their arity.
@@ -249,19 +250,24 @@ class CallFunction(Node):
 
 class CaseDefault(ControlFlowStatement):
   """A case or default statement."""
-  def __init__(self, position, condition = None, statements=None):
+  def __init__(self, position, condition = None, statements = None):
+    if statements is None: statements = []
     self.position = position
     self.condition = condition
-    self.statements = statements or []
+    self.statements = statements
+    return
 
   def GetChildren(self):
-    return [self.condition] + self.statements
+    li = []
+    li.append(self.condition)
+    li.extend(self.statements)
+    return li
 
   def GetSExp(self):
     li = []
     li.append('default-or-case')
     if self.condition:
-      li.append([':condition', 'case', self.condition])
+      li.append([':condition', 'case', self.condition, self.statements])
     return li
 
 

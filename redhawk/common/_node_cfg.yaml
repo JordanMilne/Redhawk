@@ -163,9 +163,9 @@ CaseDefault:
   super: ControlFlowStatement
   docstring: "A case or default statement."
   args: position
-  optargs: condition
-  sexp: ["default-or-case", [_condition, 'case', condition]]
-  children: condition
+  optargs: condition, statements=[]
+  sexp: ["default-or-case", [_condition, 'case', condition, statements]]
+  children: condition, *statements
 
 DefineType:
   docstring: "A Type Definition."
@@ -184,6 +184,12 @@ Tuple:
   args: position, members 
   sexp: ['*members']
   children: '*members'
+
+Set:
+  docstring: "A Set."
+  args: position, values 
+  sexp: ['*values']
+  children: '*values'
 
 Dict:
   docstring: "A dictionary."
@@ -300,9 +306,9 @@ Exec:
 Raise:
   docstring: "Raise an Exception."
   super: ExceptionsStatement
-  args: position, exception_type
-  sexp: ["raise-exception", exception_type]
-  children: exception_type
+  args: position, exception
+  sexp: ["raise-exception", exception]
+  children: exception
 
 TryCatch:
   docstring: "A Try-Catch block."
